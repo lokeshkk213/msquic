@@ -62,7 +62,7 @@ pub struct sockaddr_in {
     pub family: AddressFamily,
     pub port: u16,
     pub addr: in_addr,
-    pub zero: [u8; 8usize],
+    // pub zero: [u8; 8usize],
 }
 
 /// IPv6 address payload.
@@ -103,7 +103,7 @@ impl Addr {
                 family,
                 port: port,
                 addr: in_addr{ addr: addr },
-                zero: [0, 0, 0, 0, 0, 0, 0, 0],
+                // zero: [0, 0, 0, 0, 0, 0, 0, 0],
             },
         }
     }
