@@ -40,7 +40,7 @@ pub const ADDRESS_FAMILY_INET6: AddressFamily = c_types::AF_INET6 as u16;
 #[derive(Debug, Copy, Clone)]
 pub struct sockaddr {
     pub family: AddressFamilty,
-    pub sa_data: [char; 14char],
+    pub sa_data: [char; 14],
 }
 
 /// IPv4 address payload.
@@ -74,7 +74,7 @@ pub union Addr {
 }
 
 impl Addr {
-    pub fn ip(family: u16, sa_data: [char, 14char] ) -> Addr {
+    pub fn ip(family: u16, sa_data: [char, 14] ) -> Addr {
         Addr {
             ip: sockaddr {
                 family,
