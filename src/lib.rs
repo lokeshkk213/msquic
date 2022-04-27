@@ -36,6 +36,13 @@ pub const ADDRESS_FAMILY_UNSPEC: AddressFamily = c_types::AF_UNSPEC as u16;
 pub const ADDRESS_FAMILY_INET: AddressFamily = c_types::AF_INET as u16;
 pub const ADDRESS_FAMILY_INET6: AddressFamily = c_types::AF_INET6 as u16;
 
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct sockaddr {
+    pub family: AddressFamilty,
+    pub sa_data: [char; 14char],
+}
+
 /// IPv4 address payload.
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -61,11 +68,21 @@ pub struct sockaddr_in6 {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union Addr {
+    pub ip: sockaddr,
     pub ipv4: sockaddr_in,
     pub ipv6: sockaddr_in6,
 }
 
 impl Addr {
+    pub fn ip(family: u16, sa_data: [char, 14char] ) -> Addr {
+        Addr {
+            ip: sockaddr {
+                family,
+                sa_data,
+            },
+        }
+    }
+
     /// Create a representation of IPv4 address and perform Network byte order conversion
     /// on the port number.
     pub fn ipv4(family: u16, port: u16, addr: u32) -> Addr {
