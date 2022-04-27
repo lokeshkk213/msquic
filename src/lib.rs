@@ -38,6 +38,18 @@ pub const ADDRESS_FAMILY_INET6: AddressFamily = c_types::AF_INET6 as u16;
 
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct in_addr {
+    pub addr: u32,
+}
+
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct in6_addr {
+    pub addr: [char; 16],
+}
+
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct sockaddr {
     pub family: AddressFamily,
     pub sa_data: [char; 14],
@@ -49,7 +61,7 @@ pub struct sockaddr {
 pub struct sockaddr_in {
     pub family: AddressFamily,
     pub port: u16,
-    pub addr: u32,
+    pub addr: in_addr,
     pub zero: [u8; 8usize],
 }
 
@@ -60,7 +72,7 @@ pub struct sockaddr_in6 {
     pub family: AddressFamily,
     pub port: u16,
     pub flow_info: u32,
-    pub addr: [u8; 16usize],
+    pub addr: in6_addr,
     pub scope_id: u32,
 }
 
@@ -90,7 +102,7 @@ impl Addr {
             ipv4: sockaddr_in {
                 family,
                 port: port,
-                addr,
+                addr: in_addr{ addr: addr },
                 zero: [0, 0, 0, 0, 0, 0, 0, 0],
             },
         }
@@ -102,7 +114,7 @@ impl Addr {
         family: u16,
         port: u16,
         flow_info: u32,
-        addr: [u8; 16usize],
+        addr: [char; 16],
         scope_id: u32,
     ) -> Addr {
         Addr {
@@ -110,7 +122,7 @@ impl Addr {
                 family,
                 port: port,
                 flow_info,
-                addr,
+                addr: in6_addr{addr: addr},
                 scope_id,
             },
         }
