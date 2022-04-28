@@ -5985,6 +5985,8 @@ QuicConnParamSet(
     QUIC_STATUS Status;
     QUIC_SETTINGS_INTERNAL InternalSettings = {0};
 
+    printf("Set Param %d", Param);
+
     switch (Param) {
 
     case QUIC_PARAM_CONN_LOCAL_ADDRESS: {
