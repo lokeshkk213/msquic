@@ -5989,8 +5989,10 @@ QuicConnParamSet(
 
     case QUIC_PARAM_CONN_LOCAL_ADDRESS: {
 
+        printf("%zu", sizeof(QUIC_ADDR));
         if (BufferLength != sizeof(QUIC_ADDR)) {
             Status = QUIC_STATUS_INVALID_PARAMETER;
+            printf("Status: %d, Sizeof: %zu", Status, sizeof(QUIC_ADDR));
             break;
         }
 
